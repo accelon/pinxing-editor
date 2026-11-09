@@ -1,0 +1,207 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#555"/>
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#c0392b"/>
+    </marker>
+    <style>
+      text { font-family: "Microsoft JhengHei", "Noto Sans TC", "PingFang TC", sans-serif; fill: #111; }
+      .title { font-size: 28px; font-weight: 700; }
+      .sub { font-size: 16px; fill: #555; }
+      .h { font-size: 20px; font-weight: 700; }
+      .bt { font-size: 17px; font-weight: 700; }
+      .t { font-size: 14px; }
+      .s { font-size: 13px; fill: #444; }
+      .lbl { font-size: 13px; fill: #555; }
+      .red { fill: #c0392b; }
+      .green { fill: #1f7a5c; }
+      .blue { fill: #2b5fa8; }
+      .purple { fill: #6a3fa0; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="1000" fill="#ffffff"/>
+
+  <text x="40" y="42" class="title">pinxing-editor — 三級編輯器架構（v0.1）</text>
+  <text x="40" y="70" class="sub">穩定版唯讀 · 編輯只產生 delta · editor macro 可重播 · 不寫上游</text>
+
+  <!-- column headers -->
+  <text x="40" y="105" class="h green">上游 D:\2026\pinxing（唯讀）</text>
+  <text x="450" y="105" class="h blue">pinxing-editor（本區，可寫）</text>
+  <text x="1140" y="105" class="h purple">輸出／machine playback</text>
+
+  <!-- ============ A. upstream ============ -->
+  <rect x="40" y="125" width="330" height="84" rx="10" fill="#e6f4ef" stroke="#1f7a5c" stroke-width="2"/>
+  <text x="56" y="152" class="bt">stable-manifest.json</text>
+  <text x="56" y="176" class="t">version 2026-11-08.1 · sha256</text>
+  <text x="56" y="196" class="t">唯一入口；不符就停</text>
+
+  <rect x="40" y="229" width="330" height="220" rx="10" fill="#e6f4ef" stroke="#1f7a5c" stroke-width="2"/>
+  <text x="56" y="256" class="bt">穩定版資料（只讀）</text>
+  <text x="56" y="282" class="t">data/cjk-strokes/</text>
+  <text x="68" y="302" class="t">strokes.bin · strokes.index.json</text>
+  <text x="68" y="322" class="t">components.json · build-report.json</text>
+  <text x="56" y="350" class="t">lib/lib-cjk-all.bin.gz</text>
+  <text x="56" y="374" class="t">src/pinxing.ts（Apache-2.0）</text>
+  <text x="56" y="402" class="t">components box 0..1 y-down</text>
+  <text x="56" y="422" class="t">→ adapter 轉 1024 y-up</text>
+
+  <rect x="40" y="475" width="330" height="190" rx="10" fill="#fff3e0" stroke="#c77700" stroke-width="2" stroke-dasharray="7 5"/>
+  <text x="56" y="502" class="bt">開發版（editor 不直接讀）</text>
+  <text x="56" y="528" class="t">out/boxfit/</text>
+  <text x="68" y="548" class="t">DECOMP.json · proportions.jsonl</text>
+  <text x="68" y="568" class="t">&lt;cp&gt;.json（boxfit 框／比例）</text>
+  <text x="56" y="594" class="t">out/compose/work/</text>
+  <text x="68" y="614" class="t">base.json · ops-*.macro · state</text>
+  <text x="56" y="640" class="t">research/ · tools/</text>
+
+  <text x="40" y="700" class="t red">✕ 不寫入：data/、lib/、src/、out/、state/receipt</text>
+
+  <!-- read-only boundary -->
+  <line x1="405" y1="120" x2="405" y2="930" stroke="#c0392b" stroke-width="2" stroke-dasharray="8 6"/>
+  <text x="418" y="520" class="s red" transform="rotate(90 418 520)">唯讀邊界</text>
+
+  <!-- ============ B. editor ============ -->
+  <rect x="450" y="125" width="600" height="90" rx="10" fill="#e8f0fb" stroke="#2b5fa8" stroke-width="2"/>
+  <text x="470" y="152" class="bt blue">Data adapter（manifest gate）</text>
+  <text x="470" y="176" class="t">讀 manifest → 比對 sha → 只載入穩定檔</text>
+  <text x="470" y="198" class="t">dev fixture 只從 data/dev/（複製，不讀 out/）</text>
+
+  <rect x="450" y="245" width="280" height="100" rx="10" fill="#e8f0fb" stroke="#2b5fa8" stroke-width="2"/>
+  <text x="470" y="272" class="bt blue">Core model</text>
+  <text x="470" y="296" class="t">Glyph → Component → Stroke</text>
+  <text x="470" y="318" class="t">stable id：cp / path / stroke</text>
+
+  <rect x="760" y="245" width="290" height="100" rx="10" fill="#e8f0fb" stroke="#2b5fa8" stroke-width="2"/>
+  <text x="780" y="272" class="bt blue">SVG renderer</text>
+  <text x="780" y="296" class="t">centerline + half-width</text>
+  <text x="780" y="318" class="t">y-up → SVG 翻轉</text>
+
+  <rect x="450" y="375" width="600" height="220" rx="10" fill="#e8f0fb" stroke="#2b5fa8" stroke-width="2"/>
+  <text x="470" y="402" class="bt blue">UI（三層同步）</text>
+  <rect x="465" y="415" width="150" height="120" rx="8" fill="#f7faff" stroke="#7fa3d6"/>
+  <text x="478" y="440" class="t">左：例子／搜尋</text>
+  <text x="478" y="462" class="t">部件樹</text>
+  <text x="478" y="492" class="t">清單／最近</text>
+  <rect x="625" y="415" width="240" height="120" rx="8" fill="#f7faff" stroke="#7fa3d6"/>
+  <text x="640" y="440" class="t">中：Canvas</text>
+  <text x="640" y="464" class="t">字 · 部件框</text>
+  <text x="640" y="488" class="t">筆畫控制點</text>
+  <rect x="875" y="415" width="160" height="120" rx="8" fill="#f7faff" stroke="#7fa3d6"/>
+  <text x="888" y="440" class="t">右：Inspector</text>
+  <text x="888" y="464" class="t">box / ratio</text>
+  <text x="888" y="488" class="t">anchor (u,w)</text>
+  <text x="470" y="568" class="t">breadcrumb · scope · impact count · undo/redo · A/B compare</text>
+
+  <rect x="450" y="625" width="280" height="110" rx="10" fill="#e8f0fb" stroke="#2b5fa8" stroke-width="2"/>
+  <text x="470" y="652" class="bt blue">Macro recorder</text>
+  <text x="470" y="676" class="t">action + before/after</text>
+  <text x="470" y="698" class="t">scope · note · decision</text>
+  <text x="470" y="720" class="t">append-only · autosave</text>
+
+  <rect x="760" y="625" width="290" height="110" rx="10" fill="#e8f0fb" stroke="#2b5fa8" stroke-width="2"/>
+  <text x="780" y="652" class="bt blue">Replay engine</text>
+  <text x="780" y="676" class="t">strict / best-effort</text>
+  <text x="780" y="698" class="t">checkpoint · seek</text>
+  <text x="780" y="720" class="t">drift / rebase</text>
+
+  <rect x="450" y="765" width="600" height="90" rx="10" fill="#e8f0fb" stroke="#2b5fa8" stroke-width="2"/>
+  <text x="470" y="792" class="bt blue">Patch / Macro store</text>
+  <text x="470" y="816" class="t">data/patches/（delta） · data/macros/（action）</text>
+  <text x="470" y="838" class="t">JSONL · append-only · 可 diff · 不寫上游</text>
+
+  <!-- ============ C. machine / author ============ -->
+  <rect x="1140" y="125" width="400" height="70" rx="10" fill="#f2f2f2" stroke="#333" stroke-width="2"/>
+  <text x="1160" y="152" class="bt">作者</text>
+  <text x="1160" y="174" class="t">看圖、拖動、accept / reject</text>
+
+  <rect x="1140" y="245" width="400" height="90" rx="10" fill="#f0eafa" stroke="#6a3fa0" stroke-width="2"/>
+  <text x="1160" y="272" class="bt purple">compile → ops-*.macro</text>
+  <text x="1160" y="296" class="t">canvas / place / extend</text>
+  <text x="1160" y="318" class="t">setwidth / point / anchor</text>
+
+  <rect x="1140" y="365" width="400" height="90" rx="10" fill="#f0eafa" stroke="#6a3fa0" stroke-width="2"/>
+  <text x="1160" y="392" class="bt purple">macro_runner.py</text>
+  <text x="1160" y="416" class="t">machine playback</text>
+  <text x="1160" y="438" class="t">state.json · receipt.json</text>
+
+  <rect x="1140" y="485" width="400" height="90" rx="10" fill="#f0eafa" stroke="#6a3fa0" stroke-width="2"/>
+  <text x="1160" y="512" class="bt purple">輸出</text>
+  <text x="1160" y="536" class="t">state sha · PNG / GIF / 並排圖</text>
+  <text x="1160" y="558" class="t">可重跑的證據</text>
+
+  <rect x="1140" y="605" width="400" height="100" rx="10" fill="#f0eafa" stroke="#6a3fa0" stroke-width="2"/>
+  <text x="1160" y="632" class="bt purple">verify / accept</text>
+  <text x="1160" y="656" class="t">上游 mtime / git status 不變</text>
+  <text x="1160" y="678" class="t">macro replay = state sha</text>
+  <text x="1160" y="700" class="t">回報作者</text>
+
+  <!-- ============ arrows ============ -->
+  <!-- stable manifest -> adapter -->
+  <path d="M370 167 L450 167" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="378" y="155" class="lbl">sha gate</text>
+
+  <!-- stable data -> adapter (read-only) -->
+  <path d="M370 330 L420 330 L420 200 L450 200" fill="none" stroke="#1f7a5c" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- dev -> adapter (copy to data/dev) -->
+  <path d="M370 570 L420 570 L420 212 L450 212" fill="none" stroke="#c77700" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+  <text x="250" y="462" class="lbl" fill="#c77700">copy → data/dev</text>
+
+  <!-- adapter -> model / renderer -->
+  <path d="M600 215 L600 245" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M800 215 L905 245" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- model <-> renderer -->
+  <path d="M730 295 L760 295" fill="none" stroke="#555" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+
+  <!-- model / renderer -> UI -->
+  <path d="M590 345 L590 375" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M905 345 L905 375" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- UI -> recorder / replay -->
+  <path d="M600 595 L600 625" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="606" y="612" class="lbl">pointerup</text>
+  <path d="M900 595 L900 625" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="906" y="612" class="lbl">undo / seek</text>
+
+  <!-- recorder <-> replay -->
+  <path d="M730 680 L760 680" fill="none" stroke="#555" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <text x="733" y="670" class="lbl">actions</text>
+
+  <!-- recorder / replay -> store -->
+  <path d="M590 735 L590 765" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M905 735 L905 765" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- store -> compile -->
+  <path d="M1050 810 L1100 810 L1100 290 L1140 290" fill="none" stroke="#6a3fa0" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="1052" y="782" width="56" height="18" fill="#ffffff" opacity="0.9"/>
+  <text x="1056" y="796" class="lbl purple">compile</text>
+
+  <!-- compile -> runner -> output -> verify -->
+  <path d="M1340 335 L1340 365" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M1340 455 L1340 485" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M1340 575 L1340 605" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- author -> UI (operate) -->
+  <path d="M1340 195 L1340 220 L1080 220 L1080 375" fill="none" stroke="#777" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+  <text x="1090" y="212" class="lbl">操作 / 判斷</text>
+
+  <!-- verify -> author (report) -->
+  <path d="M1540 655 L1560 655 L1560 160 L1540 160" fill="none" stroke="#777" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+
+  <!-- legend -->
+  <rect x="40" y="945" width="22" height="16" fill="#e6f4ef" stroke="#1f7a5c" stroke-width="2"/>
+  <text x="70" y="958" class="s">穩定版（只讀）</text>
+  <rect x="200" y="945" width="22" height="16" fill="#fff3e0" stroke="#c77700" stroke-width="2" stroke-dasharray="5 3"/>
+  <text x="230" y="958" class="s">開發版（不直接讀）</text>
+  <rect x="380" y="945" width="22" height="16" fill="#e8f0fb" stroke="#2b5fa8" stroke-width="2"/>
+  <text x="410" y="958" class="s">editor</text>
+  <rect x="480" y="945" width="22" height="16" fill="#f0eafa" stroke="#6a3fa0" stroke-width="2"/>
+  <text x="510" y="958" class="s">machine playback</text>
+  <line x1="660" y1="953" x2="700" y2="953" stroke="#c0392b" stroke-width="2" stroke-dasharray="8 6"/>
+  <text x="708" y="958" class="s">唯讀邊界</text>
+  <text x="1150" y="958" class="s">v0.1 · 2026-11-08 · 穩定版 2026-11-08.1</text>
+</svg>

@@ -1,0 +1,140 @@
+{
+ "cp": "6174",
+ "char": "慴",
+ "tree": [
+  "⿰",
+  [
+   "忄",
+   [
+    "⿱",
+    [
+     "羽",
+     "白"
+    ]
+   ]
+  ]
+ ],
+ "leaves": [
+  {
+   "char": "忄",
+   "path": [
+    0
+   ],
+   "strokes": [
+    0,
+    1,
+    2
+   ],
+   "box": [
+    82,
+    -133,
+    421,
+    725
+   ],
+   "box_kind": "ink",
+   "natural_box": [
+    82,
+    -133,
+    421,
+    725
+   ],
+   "ratio": {
+    "sx": 0.331055,
+    "sy": 0.670312,
+    "relx": -0.254395,
+    "rely": -0.06875
+   },
+   "trials": 7,
+   "best_iou": 1.0,
+   "confidence": 1.0
+  },
+  {
+   "char": "羽",
+   "path": [
+    1,
+    0
+   ],
+   "strokes": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+   ],
+   "box": [
+    384,
+    331,
+    900,
+    694
+   ],
+   "box_kind": "ink",
+   "natural_box": [
+    384,
+    331,
+    900,
+    694
+   ],
+   "ratio": {
+    "sx": 1.007812,
+    "sy": 0.283594,
+    "relx": -0.246094,
+    "rely": 0.100391
+   },
+   "trials": 7,
+   "best_iou": 1.0,
+   "confidence": 1.0
+  },
+  {
+   "char": "白",
+   "path": [
+    1,
+    1
+   ],
+   "strokes": [
+    9,
+    10,
+    11,
+    12,
+    13
+   ],
+   "box": [
+    455,
+    -105,
+    830,
+    366
+   ],
+   "box_kind": "ink",
+   "natural_box": [
+    455,
+    -105,
+    830,
+    366
+   ],
+   "ratio": {
+    "sx": 0.732422,
+    "sy": 0.367969,
+    "relx": -0.245117,
+    "rely": -0.198047
+   },
+   "trials": 7,
+   "best_iou": 1.0,
+   "confidence": 1.0
+  }
+ ],
+ "variant": "A-natural-gap-relaxed",
+ "best": {
+  "iou": 1.0,
+  "candidate": "natural",
+  "trials": 7,
+  "bbox_diff": 0
+ },
+ "checks": {
+  "coverage": true,
+  "inside_em": true,
+  "sibling_gaps": [
+   -35
+  ],
+  "gap_rule": "direction A: sibling overlap allowed for interleave/enclosure"
+ }
+}

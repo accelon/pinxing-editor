@@ -1,0 +1,333 @@
+/* pinxing-editor UI — 暗色為預設（agent-norms §7.11 MVP/demo UI dark-only） */
+:root {
+  color-scheme: dark;
+  --bg: #14141a;
+  --panel: #1b1b23;
+  --panel-2: #20202a;
+  --line: #2e2e3a;
+  --text: #d8d5cc;
+  --muted: #8d8a80;
+  --accent: #5aa9e6;
+  --accent-2: #ffc857;
+  --ink: #e6e3da;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/1.5 "Microsoft JhengHei", "Noto Sans TC", "PingFang TC", system-ui, sans-serif;
+}
+
+#top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--line);
+  /* 不軟折行：空間不夠時先縮輸入框／狀態文字，永遠維持單列 */
+  flex-wrap: nowrap;
+  min-height: 42px;
+}
+
+.search {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+#cp-input {
+  width: 84px;
+  padding: 4px 8px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: var(--text);
+  font-family: var(--font-mono, ui-monospace, monospace);
+}
+
+#cp-input:focus {
+  outline: 1px solid var(--accent);
+}
+
+button {
+  padding: 4px 12px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: var(--text);
+  cursor: pointer;
+}
+
+button:hover {
+  border-color: var(--accent);
+}
+
+.scope-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  font-size: 13px;
+}
+
+/* 選取狀態指示器：顯示目前 scope（筆/部件/字/全域），非可點選的 radio */
+.scope-label {
+  padding: 2px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel-2);
+  color: var(--muted);
+  white-space: nowrap;
+  font-size: 12px;
+}
+
+.scope-label[data-scope="stroke"] {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.scope-label[data-scope="component"] {
+  color: var(--accent-2);
+  border-color: var(--accent-2);
+}
+
+.scope-label[data-scope="global"] {
+  color: #ff7b72;
+  border-color: #ff7b72;
+}
+
+.actions {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+  flex-wrap: nowrap;
+}
+
+.actions button {
+  padding: 3px 9px;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.stable {
+  margin-left: auto;
+  min-width: 0;
+  color: var(--muted);
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* breadcrumb 收進頂欄（原本獨佔一整列太浪費） */
+#breadcrumb {
+  flex: 0 1 auto;
+  min-width: 80px;
+  max-width: 300px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  min-height: 0;
+  color: var(--muted);
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#breadcrumb .part {
+  cursor: pointer;
+}
+
+#breadcrumb .part:hover {
+  color: var(--accent);
+}
+
+#breadcrumb .part.active {
+  color: var(--accent-2);
+}
+
+#layout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 230px 1fr 270px;
+  min-height: 0;
+  overflow: hidden;
+}
+
+aside {
+  background: var(--panel);
+  padding: 10px 12px;
+  overflow: auto;
+}
+
+#left {
+  border-right: 1px solid var(--line);
+}
+
+#right {
+  border-left: 1px solid var(--line);
+}
+
+aside h3 {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+#leaf-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#leaf-list li {
+  padding: 6px 8px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+#leaf-list li:hover {
+  background: var(--panel-2);
+}
+
+#leaf-list li.active {
+  border-color: var(--accent-2);
+  background: var(--panel-2);
+}
+
+#leaf-list .meta {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+#center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0e0e13;
+  padding: 0; /* cqw/cqh 以 content box 計，去掉 padding 免得尺寸算錯 */
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden; /* 溢出就裁，絕不蓋到狀態列 */
+  container-type: size; /* 讓 #canvas 用 cqw/cqh 塞進視口 */
+}
+
+#canvas {
+  width: min(100%, 660px); /* 退路：不支援 container query 的瀏覽器 */
+  width: min(100cqw, 100cqh); /* 取寬高較小邊，正方形塞滿 #center，不留大片空白 */
+  height: auto;
+  aspect-ratio: 1;
+  background: #17171e;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+#inspector {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-all;
+  font: 12px/1.6 ui-monospace, "Cascadia Mono", Consolas, monospace;
+  color: var(--text);
+}
+
+#bottom {
+  flex-shrink: 0; /* 狀態列永遠單列，不撐高也不被擠壓 */
+  padding: 5px 12px;
+  background: var(--panel);
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+#status {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis; /* 太長就省略；完整文字滑過去看 title */
+}
+
+#bottom.error {
+  color: #ff8f8f;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* 衍字清單：網格排列，省垂直空間 */
+#derived-list {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+
+#derived-list .derived-item {
+  min-width: 24px;
+  padding: 2px 4px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+  background: var(--panel-2);
+}
+
+#derived-list .derived-item:hover {
+  border-color: var(--accent);
+  color: var(--accent-2);
+}
+
+/* 筆畫使用部件清單 */
+#stroke-users-list {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+}
+
+#stroke-users-list li {
+  padding: 5px 8px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+#stroke-users-list li:hover {
+  background: var(--panel-2);
+}
+
+#stroke-users-list li.active {
+  border-color: var(--accent-2);
+  background: var(--panel-2);
+}
+
+#stroke-users-list .meta {
+  color: var(--muted);
+  font-size: 12px;
+}

@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="data:," />
+    <title>pinxing-editor — 三級編輯器原型</title>
+    <script type="module" src="/src/main.ts"></script>
+  </head>
+  <body>
+    <header id="top">
+      <nav id="breadcrumb" aria-label="breadcrumb"></nav>
+      <div class="search">
+        <input id="cp-input" placeholder="hex" autocomplete="off" spellcheck="false" />
+        <button id="cp-go">開字</button>
+      </div>
+      <div id="scope-bar" class="scope-bar" title="目前選取的作用域（隨選取自動切換）">
+        <span id="scope-label" class="scope-label">字</span>
+      </div>
+      <div class="actions">
+        <button id="btn-undo" title="Ctrl+Z">復原</button>
+        <button id="btn-redo" title="Ctrl+Shift+Z">重做</button>
+        <button id="btn-save" title="存 patch JSONL">存</button>
+        <button id="tourEntry" title="操作導覽（跟著做一次就會用）" aria-label="操作導覽">🦮</button>
+        <button id="btn-reload" title="重載並重播 patch">重載</button>
+        <button id="btn-ab" title="按住 \ 看原狀">A/B</button>
+        <button id="btn-export-svg">SVG</button>
+        <button id="btn-export-png">PNG</button>
+      </div>
+      <div id="stable-ver" class="stable">stable 載入中…</div>
+    </header>
+
+    <div id="layout">
+      <aside id="left">
+        <h3>部件清單</h3>
+        <ul id="leaf-list"></ul>
+        <h3 id="derived-title" class="hidden">衍字清單</h3>
+        <ul id="derived-list"></ul>
+        <h3 id="stroke-users-title" class="hidden">筆畫的使用部件</h3>
+        <ul id="stroke-users-list"></ul>
+        <h3>例子</h3>
+        <ul id="example-list"></ul>
+        <h3>最近</h3>
+        <ul id="recent-list"></ul>
+      </aside>
+      <main id="center">
+        <svg id="canvas" viewBox="0 0 1024 1024" role="img" aria-label="字形畫布"></svg>
+      </main>
+      <aside id="right">
+        <h3>Inspector</h3>
+        <pre id="inspector">（未選取）</pre>
+        <h3>影響面</h3>
+        <pre id="impact">—</pre>
+        <h3>狀態</h3>
+        <pre id="edit-state">—</pre>
+      </aside>
+    </div>
+
+    <footer id="bottom"><span id="status">就緒</span></footer>
+
+    <!-- Self-explaining tour shell（勿改 id；player 依 id 找元素） -->
+    <div id="tourSpot" hidden></div>
+    <div id="tourBubble" role="dialog" aria-live="polite" hidden>
+      <div class="tourHead">
+        <span class="tourWhere" id="tourWhere"></span>
+        <button type="button" class="tourClose" id="tourX" title="結束導覽（Esc）">✕</button>
+      </div>
+      <div id="tourTitle"></div>
+      <div id="tourText"></div>
+      <div id="tourNote" hidden></div>
+      <div class="tourBtns">
+        <button type="button" id="tourPrev" title="上一個場景（←）" hidden>← 上一場景</button>
+        <button type="button" id="tourReplay" title="重播本場景" hidden>重播</button>
+        <span class="tourProg" id="tourProg"></span>
+        <button type="button" id="tourDone" hidden>我做好了</button>
+        <button type="button" id="tourSkip" hidden>略過這步</button>
+        <button type="button" id="tourNext" class="primary" hidden>下一個場景 →</button>
+      </div>
+    </div>
+
+    <div id="tourBackdrop" hidden></div>
+    <div id="tourBox" role="dialog" aria-modal="true" aria-labelledby="tourMenuTitle" hidden>
+      <div class="tourMenuHead">
+        <h2 id="tourMenuTitle">操作導覽</h2>
+        <button id="tourClose" class="tourClose" title="關閉（Esc）">✕</button>
+      </div>
+      <p class="tourHint">跟著做一次就會用。每個場景做完會停住，由你決定要不要往下。</p>
+      <div id="tourList" class="tourList"></div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,95 @@
+{
+ "cp": "8FCD",
+ "char": "迍",
+ "tree": [
+  "⿺",
+  [
+   "辶",
+   "屯"
+  ]
+ ],
+ "leaves": [
+  {
+   "char": "辶",
+   "path": [
+    0
+   ],
+   "strokes": [
+    4,
+    5,
+    6
+   ],
+   "box": [
+    75,
+    -123,
+    996,
+    635
+   ],
+   "box_kind": "ink",
+   "natural_box": [
+    75,
+    -123,
+    996,
+    635
+   ],
+   "ratio": {
+    "sx": 0.899414,
+    "sy": 0.592187,
+    "relx": 0.022949,
+    "rely": -0.1
+   },
+   "trials": 7,
+   "best_iou": 1.0,
+   "confidence": 1.0
+  },
+  {
+   "char": "屯",
+   "path": [
+    1
+   ],
+   "strokes": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "box": [
+    381,
+    54,
+    909,
+    731
+   ],
+   "box_kind": "ink",
+   "natural_box": [
+    381,
+    54,
+    909,
+    731
+   ],
+   "ratio": {
+    "sx": 0.515625,
+    "sy": 0.528906,
+    "relx": 0.129883,
+    "rely": 0.006641
+   },
+   "trials": 7,
+   "best_iou": 1.0,
+   "confidence": 1.0
+  }
+ ],
+ "variant": "A-natural-gap-relaxed",
+ "best": {
+  "iou": 1.0,
+  "candidate": "natural",
+  "trials": 7,
+  "bbox_diff": 0
+ },
+ "checks": {
+  "coverage": true,
+  "inside_em": true,
+  "sibling_gaps": [
+   -528
+  ],
+  "gap_rule": "direction A: sibling overlap allowed for interleave/enclosure"
+ }
+}

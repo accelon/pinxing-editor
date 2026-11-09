@@ -1,0 +1,136 @@
+{
+ "cp": "5BBC",
+ "char": "宼",
+ "tree": [
+  "⿱",
+  [
+   "宀",
+   [
+    "⿺",
+    [
+     "元",
+     "女"
+    ]
+   ]
+  ]
+ ],
+ "leaves": [
+  {
+   "char": "宀",
+   "path": [
+    0
+   ],
+   "strokes": [
+    0,
+    1,
+    2
+   ],
+   "box": [
+    166,
+    414,
+    817,
+    722
+   ],
+   "box_kind": "ink",
+   "natural_box": [
+    166,
+    414,
+    817,
+    722
+   ],
+   "ratio": {
+    "sx": 0.635742,
+    "sy": 0.240625,
+    "relx": -0.02002,
+    "rely": 0.14375
+   },
+   "trials": 7,
+   "best_iou": 1.0,
+   "confidence": 1.0
+  },
+  {
+   "char": "元",
+   "path": [
+    1,
+    0
+   ],
+   "strokes": [
+    3,
+    4,
+    5,
+    6
+   ],
+   "box": [
+    88,
+    -127,
+    948,
+    415
+   ],
+   "box_kind": "ink",
+   "natural_box": [
+    88,
+    -127,
+    948,
+    415
+   ],
+   "ratio": {
+    "sx": 0.839844,
+    "sy": 0.846875,
+    "relx": 0.005859,
+    "rely": 0.125
+   },
+   "trials": 7,
+   "best_iou": 1.0,
+   "confidence": 1.0
+  },
+  {
+   "char": "女",
+   "path": [
+    1,
+    1
+   ],
+   "strokes": [
+    7,
+    8,
+    9
+   ],
+   "box": [
+    522,
+    -2,
+    909,
+    476
+   ],
+   "box_kind": "ink",
+   "natural_box": [
+    522,
+    -2,
+    909,
+    476
+   ],
+   "ratio": {
+    "sx": 0.37793,
+    "sy": 0.746875,
+    "relx": 0.19873,
+    "rely": 0.270313
+   },
+   "trials": 7,
+   "best_iou": 1.0,
+   "confidence": 1.0
+  }
+ ],
+ "variant": "A-natural-gap-relaxed",
+ "best": {
+  "iou": 1.0,
+  "candidate": "natural",
+  "trials": 7,
+  "bbox_diff": 0
+ },
+ "checks": {
+  "coverage": true,
+  "inside_em": true,
+  "sibling_gaps": [
+   -387
+  ],
+  "gap_rule": "direction A: sibling overlap allowed for interleave/enclosure"
+ }
+}

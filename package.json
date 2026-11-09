@@ -1,0 +1,23 @@
+{
+  "name": "pinxing-editor",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "d0-check": "bun scripts/d0-check.ts",
+    "check-upstream": "bun scripts/check-upstream.ts",
+    "accept": "node scripts/accept.ts",
+    "tour:build": "bun src/tour/build-tours.ts --config tour.config.ts",
+    "tour:check": "bun src/tour/build-tours.ts --config tour.config.ts --check",
+    "tour:demo": "node scripts/tour-demo.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "playwright-core": "^1.65.0",
+    "typescript": "^5.7.0",
+    "vite": "^6.0.0"
+  }
+}

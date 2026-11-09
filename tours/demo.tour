@@ -1,0 +1,95 @@
+@id demo
+@title 三級編輯器 · 一分鐘演示
+@intro 開字 → 三層選取 → 拖框與控制點 → 復原、A/B → 存檔重播。自動播放；隨時按 Esc 結束，之後從 🦮 可再看一次。
+
+### ① 開一個字
+上面輸入框打 **hex 碼位**（例 6C87），按「開字」。左邊列出這個字的**部件**，右邊是檢視器。
+
+> 指向 #cp-input
+> 輸入 #cp-input => 6C87
+> 點 #cp-go
+> 等頁面 text:#status=U+6C87 8000
+> 等 800
+> 指向 #leaf-list
+> 停 看完在畫面任何地方點一下
+> 不指向
+
+### ② 三層選取：字 ＞ 部件 ＞ 筆
+點左邊清單選**部件**，麵包屑會顯示「字 ＞ 部件」；點畫布上的筆畫，再細到「第幾筆」。三層是連動的：選部件，它管的筆一起亮。
+
+> 指向 #leaf-list
+> 點 #leaf-list li
+> 等頁面 count:#breadcrumb .part >= 2 5000
+> 等 700
+> 指向 #breadcrumb
+> 停
+> 不指向
+> 指向 #canvas
+> 點 [data-kind="stroke"]
+> 等頁面 text:#breadcrumb=筆 5000
+> 等 700
+> 停 點一下繼續
+> 不指向
+
+### ③ 拖部件框
+選到部件後拖**虛線框**，整組筆畫跟著平移；右邊「影響面」顯示這個改動波及多少字。全程只產生一筆 delta（patch），不改原資料。
+
+> 點 #leaf-list li
+> 等頁面 count:#breadcrumb .part >= 2 5000
+> 指向 #canvas
+> 呼叫 dragBox
+> 等頁面 api:dirty 5000
+> 等 900
+> 指向 #impact
+> 停 看完點一下
+> 不指向
+
+### ④ 拖控制點與 A/B
+選一條**筆**會出現控制點；拖控制點只動這一筆。按住工具列 **A/B**（或 \ 鍵）隨時看原狀。
+
+> 點 [data-kind="stroke"][data-index="4"]
+> 等頁面 text:#breadcrumb=筆 5000
+> 呼叫 dragPoint => 4
+> 等頁面 api:dirty 5000
+> 等 900
+> 呼叫 setAb => on
+> 等頁面 api:ab 3000
+> 等 1200
+> 指向 #btn-ab
+> 停 紅色徽章＝顯示原狀；點一下看回改後
+> 呼叫 setAb => off
+> 等頁面 !api:ab 3000
+> 等 600
+> 不指向
+
+### ⑤ 復原與重做
+每一步都是一條 patch，可以**復原**、**重做**，不傷原資料。
+
+> 指向 #btn-undo
+> 點 #btn-undo
+> 等頁面 api:canRedo 3000
+> 等 700
+> 停
+> 點 #btn-redo
+> 等頁面 api:canUndo 3000
+> 等 700
+> 不指向
+
+### ⑥ 存檔與重播
+「存」把 patches 寫成 JSONL（含 state sha 檢查點）；「重載」會重播它們，state 對得上才算成功。
+
+> 指向 #btn-save
+> 點 #btn-save
+> 等頁面 text:#status=已存 8000
+> 等 800
+> 指向 #btn-reload
+> 點 #btn-reload
+> 等頁面 text:#status=重載完成 8000
+> 等 800
+> 停 重播後 sha 對得上
+> 不指向
+
+### 就是這樣
+三層選取、拖曳、undo/redo、A/B、存檔重播都在這一頁。想再看一次：按工具列的 🦮。
+
+> 不指向

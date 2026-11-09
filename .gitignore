@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.cache/
+.vite/
+*.log
+.DS_Store
+
+# 中間產物；保留 out/README.md
+out/*
+!out/README.md
+
+# 專案工作資料（記憶／日誌），不進版控
+.workbuddy/
+
+# 執行期產生的 patch 存檔（accept/tour 測試會寫入）
+data/patches/
